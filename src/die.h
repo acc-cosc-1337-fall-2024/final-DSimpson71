@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib> 
 #include <ctime>   
+#include <random>
 
 #ifndef DIE_H
 #define DIE_H
