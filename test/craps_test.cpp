@@ -3,6 +3,8 @@
 #include "die.h"
 #include "roll.h"
 #include "shooter.h"
+#include "come_out_phase.h"
+#include "point_phase.h"
 
 TEST_CASE("Verify Test Configuration", "verification") {
 	REQUIRE(true == true);
@@ -50,6 +52,35 @@ TEST_CASE("Verify shooter works and returns values from 2 - 12 each time")
 		i++;
 		auto result = shoot.throw_dice(d1,d2).roll_value();
 		REQUIRE(((result>=2) && (result<=12)));
+	}
+
+}
+
+TEST_CASE("Verify Phase Variants return the correct Enums")
+{
+	Die die1;
+	Die die2;
+	Roll roll(die1,die2);
+	Roll* R = &roll;
+	ComeOutPhase C;
+	int x=10,i=0;
+	while(i!=x)
+	{
+		i++;
+		R->roll_dice();
+		//Requires C.get_outcome to be one of three options, point, craps or natural
+		REQUIRE(((C.get_outcome(R) == RollOutcome::point)||(C.get_outcome(R) == RollOutcome::craps)||(C.get_outcome(R) == RollOutcome::natural)));
+
+	}
+	PointPhase P(7);
+	x=10;i=0;
+	while(i!=x)
+	{
+		i++;
+		R->roll_dice();
+		//Requires P.get_outcome to be one of three options, point, no-point or seven_out
+		REQUIRE(((P.get_outcome(R) == RollOutcome::point)||(P.get_outcome(R) == RollOutcome::nopoint)||(P.get_outcome(R) == RollOutcome::seven_out)));
+
 	}
 
 }
