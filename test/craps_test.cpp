@@ -50,7 +50,7 @@ TEST_CASE("Verify shooter works and returns values from 2 - 12 each time")
 	while(i!=x)
 	{
 		i++;
-		auto result = shoot.throw_dice(d1,d2).roll_value();
+		auto result = shoot.throw_dice(d1,d2)->roll_value();
 		REQUIRE(((result>=2) && (result<=12)));
 	}
 
